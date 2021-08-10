@@ -24,8 +24,15 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
         {
             try
             {
-                var retorno = await this._servicoHttp.Get<List<Fruta>>(new Uri($"{this._urlDaApi}/Fruta/BuscarFrutas"), null);
-                return new ModeloDeListaDeFrutas(retorno, retorno.Count, filtro);
+                if (String.IsNullOrEmpty(filtro.Nome))
+                {
+                    var retorno = await this._servicoHttp.Get<List<Fruta>>(new Uri($"{this._urlDaApi}/Fruta/BuscarFrutas"), null);
+                    return new ModeloDeListaDeFrutas(retorno, retorno.Count, filtro);
+                } else
+                {
+                    var retorno = await this._servicoHttp.Get<List<Fruta>>(new Uri($"{this._urlDaApi}/Fruta/BuscarPorNome/{filtro.Nome}"), null);
+                    return new ModeloDeListaDeFrutas(retorno, retorno.Count, filtro);
+                }
             }
             catch (InvalidOperationException)
             {
@@ -37,7 +44,7 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
         {
             try
             {
-                var retorno = await this._servicoHttp.Get<Fruta>(new Uri($"{this._urlDaApi}/Fruta/byId/{id}"), null);
+                var retorno = await this._servicoHttp.Get<Fruta>(new Uri($"{this._urlDaApi}/Fruta/BuscarPorId/{id}"), null);
                 return new ModeloDeEdicaoDeFruta(retorno);
             }
             catch (InvalidOperationException)
@@ -75,6 +82,23 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
                     modelo);
 
                 return new ModeloDeEdicaoDeFruta(retorno);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ExcecaoDeAplicacao("O serviço não está disponível.");
+            }
+        }
+
+        public async Task<bool> ExcluirFruta(int id)
+        {
+            try
+            {
+                var retorno = await this._servicoHttp.Delete<string>(new Uri($"{this._urlDaApi}/Fruta/excluirFruta/{id}"), null);
+                
+                if(retorno == null)  
+                    return true; 
+                
+                return false;   
             }
             catch (InvalidOperationException)
             {

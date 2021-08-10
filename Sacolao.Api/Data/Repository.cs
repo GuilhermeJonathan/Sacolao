@@ -43,6 +43,17 @@ namespace Sacolao.Api.Data
             return query.ToList();
         }
 
+        public List<Fruta> GetFrutaByName(string nome)
+        {
+            IQueryable<Fruta> query = _context.Frutas;
+            
+            if (!String.IsNullOrEmpty(nome))
+                query = query.Where(a => a.Nome.ToUpper().Contains(nome.ToUpper()));
+
+            query = query.AsNoTracking().OrderBy(a => a.Nome);
+            return query.ToList();
+        }
+
         public Fruta GetFrutaById(int frutaId)
         {
             IQueryable<Fruta> query = _context.Frutas;

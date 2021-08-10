@@ -13,5 +13,6 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
         Task<ModeloDeEdicaoDeFruta> BuscarFrutaPorId(int id);
         Task<ModeloDeEdicaoDeFruta> SalvarFruta(ModeloDeEdicaoDeFruta modelo);
         Task<ModeloDeEdicaoDeFruta> CadastrarFruta(ModeloDeCadastroDeFruta modelo);
+        Task<bool> ExcluirFruta(int id);
     }
 }

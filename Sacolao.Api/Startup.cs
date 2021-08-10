@@ -68,7 +68,7 @@ namespace Sacolao.Api
                       {
                           Title = "Sacolao.WebAPI",
                           Version = description.ApiVersion.ToString(),
-                          Description = "Descrição da WebApi do Sacolão Framework",
+                          Description = "Descrição da WebApi do Sacolão Web",
                           Contact = new OpenApiContact
                           {
                               Name = "Guilherme Rodrigues",

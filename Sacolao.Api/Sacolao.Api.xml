@@ -15,6 +15,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.BuscarPorNome(System.String)">
+            <summary>
+            /Método Responsável para retornar todas frutas
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
         <member name="M:Sacolao.Api.v1.Controllers.FrutaController.GetById(System.Int32)">
             <summary>
             Método responsável por realizar busca de uma fruta por Id

@@ -14,6 +14,7 @@ namespace Sacolao.Api.Data
         bool SaveChanges();
 
         List<Fruta> GetAllFrutas();
+        List<Fruta> GetFrutaByName(string nome);
         Fruta GetFrutaById(int frutaId);
     }
 }

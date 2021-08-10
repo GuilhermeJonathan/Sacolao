@@ -116,6 +116,35 @@ namespace Sacolao.Infraestrutura
             }
         }
 
+        public async Task<T> Delete<T>(Uri url, IDictionary<string, string> cabecalho = null)
+        {
+            var urlCompleta = new UriBuilder(url);
+            var query = HttpUtility.ParseQueryString(urlCompleta.Query);
+
+            this.MontarCabecalho(cabecalho);
+
+            urlCompleta.Query = query.ToString();
+
+            try
+            {
+                using (var resposta = await this._clienteHttp.DeleteAsync(urlCompleta.Uri))
+                {
+                    resposta.EnsureSuccessStatusCode();
+
+                    var conteudoDaResposta = await resposta.Content.ReadAsStringAsync();
+                    
+                    if (!resposta.IsSuccessStatusCode)
+                        throw new HttpRequestException();
+
+                    return JsonConvert.DeserializeObject<T>(conteudoDaResposta);
+                };
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new InvalidOperationException("Servidor indisponível");
+            }
+        }
+
         private void MontarCabecalho(IDictionary<string, string> cabecalho)
         {
             if (cabecalho == null || !cabecalho.Any())

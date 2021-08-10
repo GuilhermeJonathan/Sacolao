@@ -1,0 +1,26 @@
+﻿<form role="form" id="formConfirmacao" action="@Url.Action("Excluir", "Fruta")" method="get">
+    <div class="modal fade" id="modalConfirmacao" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmação</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <input type="hidden" name="Id" class="Id" />
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span class="spnTextoConfirmacao">Tem certeza que deseja excluir?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger float-left" data-dismiss="modal">Não</button>
+                    <a href="javascript:void(0);" class="btnConfirmacao btn btn-success float-right">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

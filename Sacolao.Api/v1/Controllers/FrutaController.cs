@@ -44,12 +44,29 @@ namespace Sacolao.Api.v1.Controllers
         }
 
         /// <summary>
+        /// /Método Responsável para retornar frutas por nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        [HttpGet("BuscarPorNome/{nome}")]
+        public IActionResult BuscarPorNome(string nome)
+        {
+            var frutas = _repo.GetFrutaByName(nome);
+            var retorno = _mapper.Map<IEnumerable<FrutaDto>>(frutas);
+
+            if (retorno != null)
+                return Ok(retorno);
+
+            return BadRequest("Frutas não encontradas.");
+        }
+
+        /// <summary>
         /// Método responsável por realizar busca de uma fruta por Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpGet("byId/{id}")]
+        [HttpGet("BuscarPorId/{id}")]
         public IActionResult GetById(int id)
         {
             var fruta = _repo.GetFrutaById(id);
@@ -59,7 +76,7 @@ namespace Sacolao.Api.v1.Controllers
             if (frutaDto != null)
                 return Ok(frutaDto);
 
-            return BadRequest("Aluno não encontrado.");
+            return BadRequest("Fruta não encontrada.");
         }
 
         /// <summary>
@@ -109,20 +126,20 @@ namespace Sacolao.Api.v1.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("excluirFruta/{id}")]
         public IActionResult Delete(int id)
         {
-            var aluno = _repo.GetFrutaById(id);
+            var fruta = _repo.GetFrutaById(id);
 
-            if (aluno == null)
-                return BadRequest("Não encontrou nenhuma fruta para ser deletada.");
+            if (fruta == null)
+                return BadRequest("Não encontrou nenhuma fruta para ser excluída.");
 
-            _repo.Delete(aluno);
+            _repo.Delete(fruta);
 
             if (_repo.SaveChanges())
                 return Ok();
 
-            return BadRequest("Fruta não deletada.");
+            return BadRequest("Fruta não excluída.");
         }
     }
 }

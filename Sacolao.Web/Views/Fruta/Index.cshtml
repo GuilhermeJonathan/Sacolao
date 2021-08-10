@@ -27,7 +27,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    @Html.TextBoxFor(a => a.Filtro.Nome, "Nome")
+                                    <div class="form-group">
+                                        <label for="Nome">Nome:</label>
+                                        <input type="text" value="@Model.Filtro.Nome" class="form-control" id="Filtro.Nome" name="Filtro.Nome">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -53,25 +56,27 @@
                             <table class="table table-striped text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th width="20px"></th>
                                         <th>Nome</th>
                                         <th>Descrição</th>
                                         <th>Estoque</th>
                                         <th>R$ Valor</th>
+                                        <th width="30px"></th>
                                         <th width="30px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.Lista)
                                     {
-                                    <tr>
-                                        <td> <img src="@item.Caminho" alt="@item.Nome" class="img-circle img-size-32 mr-2"> </td>
-                                        <td>@item.Nome</td>
-                                        <td>@item.Descricao</td>
-                                        <td>@item.Quantidade</td>
-                                        <td>@item.Valor</td>
-                                        <td> <a href="@Url.Action("Editar", "Fruta", new { id = item.Id } )" class="btn btn-info"> Editar </a> </td>
-                                    </tr>
+                                        <tr>
+                                            <td> <img src="@item.Caminho" alt="@item.Nome" class="img-circle img-size-32 mr-2"> </td>
+                                            <td>@item.Nome</td>
+                                            <td>@item.Descricao</td>
+                                            <td>@item.Quantidade</td>
+                                            <td>@item.Valor</td>
+                                            <td> <a href="@Url.Action("Editar", "Fruta", new { id = item.Id } )" class="btn btn-info"> Editar </a> </td>
+                                            <td> <a href="javascript:void(0);" class="btn btn-danger btnExcluirFruta no-load float-right mr-1" data-id="@item.Id" title="Deseja excluir a fruta?"> Excluir </a></td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
@@ -86,8 +91,19 @@
     </div>
 </div>
 
+@Html.Partial("_Confirmacao")
+
+@section scripts{
 <script>
     $(function () {
+        $(".btnExcluirFruta").button().click(function () {
+            var idFruta = $(this).attr("data-id");
+            $(".Id").val(idFruta);
 
+            var form = $("#modalConfirmacao");
+            $(".btnConfirmacao").attr('href', '/Fruta/Excluir/' + idFruta);
+            form.modal('show');
+        });
     })
 </script>
+}

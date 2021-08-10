@@ -66,5 +66,18 @@ namespace Sacolao.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Excluir(int id)
+        {
+            var retorno = await _servicoDeGestaoDeFrutas.ExcluirFruta(id);
+            
+            if (retorno)
+                MensagemDeSucesso = "Fruta excluída com sucesso.";
+            else
+                MensagemDeErro = "Não foi possível excluir.";
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
