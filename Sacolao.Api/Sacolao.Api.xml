@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sacolao.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Sacolao.Api.v1.Controllers.FrutaController">
+            <summary>
+            FrutaController
+            </summary>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.Get">
+            <summary>
+            /Método Responsável para retornar todas frutas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.GetById(System.Int32)">
+            <summary>
+            Método responsável por realizar busca de uma fruta por Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.Post(Sacolao.Api.v1.Dtos.FrutaRegistroDto)">
+            <summary>
+            Método responsável para cadastrar uma Fruta
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.Patch(System.Int32,Sacolao.Api.v1.Dtos.FrutaRegistroDto)">
+            <summary>
+            Método responsável para atualizar qualquer campo de uma Fruta
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.Delete(System.Int32)">
+            <summary>
+            Método responsável por excluir uma determinada Fruta
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaDto.Id">
+            <summary>
+            Identificador da Fruta
+            </summary>
+        </member>
+        <member name="T:Sacolao.Api.v1.Dtos.FrutaRegistroDto">
+            <summary>
+            DTO para registro de Frutas
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Id">
+            <summary>
+            Identificador da Fruta
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Nome">
+            <summary>
+            Nome da Fruta {string}
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Descricao">
+            <summary>
+            Descrição da Fruta {string}
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.QuantidadeEstoque">
+            <summary>
+            Quantidade no estoque {int}
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Valor">
+            <summary>
+            Valor da Fruta {decimal}
+            </summary>
+        </member>
+    </members>
+</doc>
