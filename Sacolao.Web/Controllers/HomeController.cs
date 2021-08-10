@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Sacolao.Aplicacao.GestaoDeFrutas;
+using Sacolao.Aplicacao.GestaoDeFrutas.Modelos;
 using Sacolao.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,18 @@ namespace Sacolao.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IServicoDeGestaoDeFrutas _servicoDeGestaoDeFrutas;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IServicoDeGestaoDeFrutas servicoDeGestaoDeFrutas)
         {
+            _servicoDeGestaoDeFrutas = servicoDeGestaoDeFrutas;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(ModeloDeFiltroDeFrutas filtro)
         {
-            return View();
+            var lista = await _servicoDeGestaoDeFrutas.BuscarTodasAsFrutas(filtro);
+            return View(lista);
         }
 
         public IActionResult Privacy()

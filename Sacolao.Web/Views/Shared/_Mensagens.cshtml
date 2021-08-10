@@ -1,0 +1,15 @@
+﻿@if (TempData.Peek("MensagemDeSucesso") != null)
+{
+    <script>
+        var mensagem = "@TempData["MensagemDeSucesso"]";
+        sacolaoGeral.AdicionarMensagemDeSucesso(mensagem);
+    </script>
+}
+
+@if (TempData.Peek("MensagemDeErro") != null)
+{
+    <script>
+        var mensagem = "@TempData["MensagemDeErro"]";
+        sacolaoGeral.AdicionarMensagemDeErro(mensagem);
+    </script>
+}

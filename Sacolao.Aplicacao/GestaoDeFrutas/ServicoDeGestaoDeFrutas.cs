@@ -20,18 +20,66 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
             _servicoHttp = servicoHttp;
         }
 
-        public async Task<List<ModeloDeFrutasDaLista>> BuscarTodasAsFrutas()
+        public async Task<ModeloDeListaDeFrutas> BuscarTodasAsFrutas(ModeloDeFiltroDeFrutas filtro)
         {
             try
             {
-                return await this._servicoHttp.Get<List<ModeloDeFrutasDaLista>>(new Uri($"{this._urlDaApi}/Fruta/BuscarFrutas"), null);
+                var retorno = await this._servicoHttp.Get<List<Fruta>>(new Uri($"{this._urlDaApi}/Fruta/BuscarFrutas"), null);
+                return new ModeloDeListaDeFrutas(retorno, retorno.Count, filtro);
             }
             catch (InvalidOperationException)
             {
                 throw new ExcecaoDeAplicacao("O serviço não está disponível.");
             }
+        }
 
-            return null;
+        public async Task<ModeloDeEdicaoDeFruta> BuscarFrutaPorId(int id)
+        {
+            try
+            {
+                var retorno = await this._servicoHttp.Get<Fruta>(new Uri($"{this._urlDaApi}/Fruta/byId/{id}"), null);
+                return new ModeloDeEdicaoDeFruta(retorno);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ExcecaoDeAplicacao("O serviço não está disponível.");
+            }
+        }
+
+        public async Task<ModeloDeEdicaoDeFruta> SalvarFruta(ModeloDeEdicaoDeFruta modelo)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(modelo.Valor))
+                    modelo.Valor = modelo.Valor.Replace(",", String.Empty).Replace(".", String.Empty);
+
+                var retorno = await this._servicoHttp.PutJson<ModeloDeEdicaoDeFruta, Fruta>(new Uri($"{this._urlDaApi}/Fruta/salvarFruta/{modelo.Id}"),
+                    modelo);
+
+                return new ModeloDeEdicaoDeFruta(retorno);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ExcecaoDeAplicacao("O serviço não está disponível.");
+            }
+        }
+
+        public async Task<ModeloDeEdicaoDeFruta> CadastrarFruta(ModeloDeCadastroDeFruta modelo)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(modelo.Valor))
+                    modelo.Valor = modelo.Valor.Replace(",", String.Empty).Replace(".", String.Empty);
+
+                var retorno = await this._servicoHttp.PostJson<ModeloDeCadastroDeFruta, Fruta>(new Uri($"{this._urlDaApi}/Fruta/cadastrarFruta"),
+                    modelo);
+
+                return new ModeloDeEdicaoDeFruta(retorno);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ExcecaoDeAplicacao("O serviço não está disponível.");
+            }
         }
     }
 }

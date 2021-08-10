@@ -67,7 +67,7 @@ namespace Sacolao.Api.v1.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("cadastrarFruta")]
         public IActionResult Post(FrutaRegistroDto model)
         {
             var frutaNova = _mapper.Map<Fruta>(model);
@@ -86,8 +86,8 @@ namespace Sacolao.Api.v1.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id, FrutaRegistroDto model)
+        [HttpPut("salvarFruta/{id}")]
+        public IActionResult SalvarFruta(int id, FrutaRegistroDto model)
         {
             var fruta = _repo.GetFrutaById(id);
 

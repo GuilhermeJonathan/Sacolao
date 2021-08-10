@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 
 namespace Sacolao.Aplicacao.GestaoDeFrutas.Modelos
 {
-    public class ModeloDeFrutasDaLista
+    public class ModeloDeEdicaoDeFruta
     {
-        public ModeloDeFrutasDaLista(Fruta fruta)
+        public ModeloDeEdicaoDeFruta()
+        {
+
+        }
+
+        public ModeloDeEdicaoDeFruta(Fruta fruta)
         {
             this.Id = fruta.Id;
             this.Nome = fruta.Nome;
             this.Descricao = fruta.Descricao;
-            this.Caminho = $"/images/{fruta.Foto}";
-            this.Quantidade = fruta.QuantidadeEstoque.ToString();
-            this.Valor = fruta.Valor.ToString("F");
+            this.Foto = fruta.Foto;
+            this.QuantidadeEstoque = fruta.QuantidadeEstoque.ToString();
+            this.Valor = fruta.Valor.ToString();
         }
 
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public string Caminho { get; set; }
-        public string Quantidade { get; set; }
-        public string Total { get; set; }
+        public string Foto { get; set; }
+        public string QuantidadeEstoque { get; set; }
         public string Valor { get; set; }
-
     }
 }

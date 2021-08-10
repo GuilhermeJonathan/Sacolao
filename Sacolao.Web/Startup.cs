@@ -30,7 +30,7 @@ namespace Sacolao.Web
             services.AddHttpClient<IServicoDeComunicacaoViaHttp, ServicoDeComunicacaoViaHttp>();
             
             services.Configure<MyConfiguration>(Configuration.GetSection("APIs:urlApi"));
-            
+            services.AddSession();
             services.AddSingleton<IServicoDeGestaoDeFrutas>(service => new ServicoDeGestaoDeFrutas(
                 Configuration.GetSection("APIs:urlApi").Value, new ServicoDeComunicacaoViaHttp()));
         }
@@ -51,6 +51,8 @@ namespace Sacolao.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

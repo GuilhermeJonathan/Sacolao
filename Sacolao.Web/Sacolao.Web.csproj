@@ -4,6 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\banana.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\maca.jpg" />
+    <None Include="wwwroot\images\melancia.jpg" />
+    <None Include="wwwroot\images\morango.jpg" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Sacolao.Aplicacao\Sacolao.Aplicacao.csproj" />
     <ProjectReference Include="..\Sacolao.Infraestrutura\Sacolao.Infraestrutura.csproj" />

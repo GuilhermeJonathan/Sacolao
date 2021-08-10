@@ -24,9 +24,30 @@ a {
   border-color: #1861ac;
 }
 
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-size-32 {
+    width: 32px;
+}
+
+.profile-user-img {
+    border: 3px solid #adb5bd;
+    margin: 0 auto;
+    padding: 3px;
+    width: 150px;
+    border-style: none;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+    html {
   font-size: 14px;
 }
 @media (min-width: 768px) {

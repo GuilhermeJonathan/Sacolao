@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -55,6 +56,42 @@ namespace Sacolao.Infraestrutura
             }
         }
 
+        public async Task<TRetorno> PostJson<T, TRetorno>(Uri url, T dados, IDictionary<string, string> cabecalho = null)
+        {
+            var resposta = await this.Post<dynamic>(url, dados, cabecalho, this.MontarConteudoJson);
+            return JsonConvert.DeserializeObject<TRetorno>(resposta);
+        }
+
+        public async Task<TRetorno> PutJson<T, TRetorno>(Uri url, T dados, KeyValuePair<string, string> tokenDeAutorizacao = default(KeyValuePair<string, string>), IDictionary<string, string> cabecalho = null)
+        {
+            var resposta = await this.Put<dynamic>(url, dados, cabecalho, this.MontarConteudoJson);
+            return JsonConvert.DeserializeObject<TRetorno>(resposta);
+        }
+
+        private async Task<string> Put<T>(Uri url, T dados, IDictionary<string, string> cabecalho,
+            Func<object, HttpContent> montarConteudo)
+        {
+            this.MontarCabecalho(cabecalho);
+
+            using (var conteudo = montarConteudo.Invoke(dados))
+            {
+                try
+                {
+                    using (var resposta = await this._clienteHttp.PutAsync(url, conteudo))
+                    {
+                        if (!resposta.IsSuccessStatusCode)
+                            throw new HttpRequestException();
+
+                        return await resposta.Content.ReadAsStringAsync();
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    throw new InvalidOperationException("Servidor indisponível");
+                }
+            }
+        }
+
         private async Task<string> Post<T>(Uri url, T dados, IDictionary<string, string> cabecalho,
             Func<object, HttpContent> montarConteudo)
         {
@@ -95,12 +132,24 @@ namespace Sacolao.Infraestrutura
             }
         }
 
+        private HttpContent MontarConteudoJson<T>(T conteudo)
+        {
+            if (conteudo == null)
+                return new StringContent("");
+
+            return new StringContent(JsonConvert.SerializeObject(conteudo), Encoding.UTF8, ApplicationJson);
+        }
         public void Dispose()
         {
             if (this._clienteHttp != null)
                 this._clienteHttp.Dispose();
 
             GC.SuppressFinalize(this);
+        }
+
+        Task<string> IServicoDeComunicacaoViaHttp.Post<T>(Uri url, T dados, IDictionary<string, string> cabecalho, Func<object, HttpContent> montarConteudo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

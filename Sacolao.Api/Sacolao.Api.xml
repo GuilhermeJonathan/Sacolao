@@ -29,7 +29,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.Patch(System.Int32,Sacolao.Api.v1.Dtos.FrutaRegistroDto)">
+        <member name="M:Sacolao.Api.v1.Controllers.FrutaController.SalvarFruta(System.Int32,Sacolao.Api.v1.Dtos.FrutaRegistroDto)">
             <summary>
             Método responsável para atualizar qualquer campo de uma Fruta
             </summary>

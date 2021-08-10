@@ -9,6 +9,9 @@ namespace Sacolao.Aplicacao.GestaoDeFrutas
 {
     public interface IServicoDeGestaoDeFrutas
     {
-        Task<List<ModeloDeFrutasDaLista>> BuscarTodasAsFrutas();
+        Task<ModeloDeListaDeFrutas> BuscarTodasAsFrutas(ModeloDeFiltroDeFrutas filtro);
+        Task<ModeloDeEdicaoDeFruta> BuscarFrutaPorId(int id);
+        Task<ModeloDeEdicaoDeFruta> SalvarFruta(ModeloDeEdicaoDeFruta modelo);
+        Task<ModeloDeEdicaoDeFruta> CadastrarFruta(ModeloDeCadastroDeFruta modelo);
     }
 }

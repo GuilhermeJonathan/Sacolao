@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿(function (sacolaoGeral, $) {
+    "use strict";
 
-// Write your JavaScript code.
+    sacolaoGeral.AdicionarMensagemDeSucesso = function (mensagem) {
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right"
+        };
+
+        toastr.success(mensagem, "Sucesso");
+    };
+
+    sacolaoGeral.AdicionarMensagemDeErro = function (mensagem) {
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right"
+        };
+        toastr.error(mensagem, "OPS! Algo deu errado");
+    };     
+
+})(window.sacolaoGeral = window.sacolaoGeral || {}, jQuery)

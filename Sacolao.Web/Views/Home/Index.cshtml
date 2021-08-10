@@ -1,8 +1,62 @@
-﻿@{
+﻿@model Sacolao.Aplicacao.GestaoDeFrutas.Modelos.ModeloDeListaDeFrutas
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bem vindo ao Sacolão Web</h1>
+</div>
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">          
+                <form role="form" action="@Url.Action("AdicionarNoCarrinho", "Carrinho")" method="get">
+                    <div class="row">
+                    @if (Model.Lista != null)
+                    {
+                        @foreach (var item in Model.Lista)
+                        {
+                            <div class="col-md-3">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-body box-profile">
+                                        <div class="text-center">
+                                            <img class="profile-user-img img-fluid" src="@item.Caminho" alt="@item.Nome">
+                                        </div>
+                                        <h3 class="profile-username text-center">@item.Nome</h3>
+                                        <p class="text-muted text-center">@item.Descricao</p>
+                                        <ul class="list-group list-group-unbordered mb-3">
+                                            <li class="list-group-item">
+                                                <b>R$ </b> <a class="float-right"> @item.Valor</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Estoque</b> <a class="float-right">@item.Quantidade</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Quantidade</b>
+                                                <input type="number" value="" class="form-control" id="Total" name="Total">
+                                            </li>
+                                        </ul>
+                                        <a href="@Url.Action("AdicionarNoCarrinho", "Carrinho", new { id = item.Id, total = item.Total})" class="btn btn-primary btn-block">Adicionar no Carrinho</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-lg-12">
+                            <h2 class="display-4">Nenhum produto cadastrado.</h2>
+                        </div>
+                    }
+                </div>
+                </form>                   
+            </div>
+        </div>
+    </div>
 </div>
