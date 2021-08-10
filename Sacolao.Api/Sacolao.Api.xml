@@ -69,6 +69,11 @@
             Descrição da Fruta {string}
             </summary>
         </member>
+        <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Foto">
+            <summary>
+            Url da Foto
+            </summary>
+        </member>
         <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.QuantidadeEstoque">
             <summary>
             Quantidade no estoque {int}
