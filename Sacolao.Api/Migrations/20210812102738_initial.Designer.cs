@@ -9,8 +9,8 @@ using Sacolao.Api.Data;
 namespace Sacolao.Api.Migrations
 {
     [DbContext(typeof(SacolaoContext))]
-    [Migration("20210809225906_migrationinit")]
-    partial class migrationinit
+    [Migration("20210812102738_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,6 +118,47 @@ namespace Sacolao.Api.Migrations
                     b.HasIndex("CompraId");
 
                     b.ToTable("FrutasCompras");
+                });
+
+            modelBuilder.Entity("Sacolao.Api.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Ativo = true,
+                            Email = "teste@teste.com.br",
+                            Nome = "Teste 1",
+                            Senha = "123456"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Ativo = true,
+                            Email = "teste2@teste.com.br",
+                            Nome = "Teste 2",
+                            Senha = "123456"
+                        });
                 });
 
             modelBuilder.Entity("CompraFruta", b =>

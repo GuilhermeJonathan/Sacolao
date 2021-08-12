@@ -10,6 +10,7 @@ namespace Sacolao.Api.v1.Profiles
         {
             CreateMap<Fruta, FrutaDto>();
             CreateMap<FrutaDto, Fruta>();
+            CreateMap<UsuarioDto, Usuario>().ReverseMap();
             CreateMap<Fruta, FrutaRegistroDto>().ReverseMap();
         }
     }

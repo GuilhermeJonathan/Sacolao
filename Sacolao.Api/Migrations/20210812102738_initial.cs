@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Sacolao.Api.Migrations
 {
-    public partial class migrationinit : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,6 +36,22 @@ namespace Sacolao.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Frutas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    Senha = table.Column<string>(type: "TEXT", nullable: true),
+                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +117,16 @@ namespace Sacolao.Api.Migrations
                 columns: new[] { "Id", "Descricao", "Foto", "Nome", "QuantidadeEstoque", "Valor" },
                 values: new object[] { 3, "Verde", "melancia.jpg", "Melancia", 15, 9m });
 
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "Id", "Ativo", "Email", "Nome", "Senha" },
+                values: new object[] { 1, true, "teste@teste.com.br", "Teste 1", "123456" });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "Id", "Ativo", "Email", "Nome", "Senha" },
+                values: new object[] { 2, true, "teste2@teste.com.br", "Teste 2", "123456" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CompraFruta_FrutasId",
                 table: "CompraFruta",
@@ -119,6 +145,9 @@ namespace Sacolao.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "FrutasCompras");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Compras");

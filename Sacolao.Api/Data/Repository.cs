@@ -65,5 +65,15 @@ namespace Sacolao.Api.Data
             return query.FirstOrDefault();
         }
 
+        public Usuario LoginUsuario(string email, string senha)
+        {
+            IQueryable<Usuario> query = _context.Usuarios;
+
+            query = query.AsNoTracking()
+                .OrderBy(a => a.Nome)
+                .Where(b => b.Email == email && b.Senha == senha);
+
+            return query.FirstOrDefault();
+        }
     }
 }

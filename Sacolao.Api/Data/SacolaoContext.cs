@@ -14,6 +14,7 @@ namespace Sacolao.Api.Data
         public DbSet<Fruta> Frutas { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<FrutaCompra> FrutasCompras { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,6 +25,12 @@ namespace Sacolao.Api.Data
                     new Fruta(1, "Banana", "Amarela", "banana.jpg", 50, 5),
                     new Fruta(2, "Maça", "Vermelha", "maca.jpg", 150, 2),
                     new Fruta(3, "Melancia", "Verde", "melancia.jpg", 15, 9)
+               });
+
+            builder.Entity<Usuario>()
+               .HasData(new List<Usuario>(){
+                    new Usuario(1, "Teste 1", "teste@teste.com.br", "123456"),
+                    new Usuario(2, "Teste 2", "teste2@teste.com.br", "123456")
                });
         }
     }

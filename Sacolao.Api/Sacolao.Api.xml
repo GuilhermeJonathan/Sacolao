@@ -17,7 +17,7 @@
         </member>
         <member name="M:Sacolao.Api.v1.Controllers.FrutaController.BuscarPorNome(System.String)">
             <summary>
-            /Método Responsável para retornar todas frutas
+            /Método Responsável para retornar frutas por nome
             </summary>
             <param name="nome"></param>
             <returns></returns>
@@ -49,6 +49,18 @@
             Método responsável por excluir uma determinada Fruta
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Sacolao.Api.v1.Controllers.LoginController">
+            <summary>
+            LoginController
+            </summary>
+        </member>
+        <member name="M:Sacolao.Api.v1.Controllers.LoginController.Post(Sacolao.Api.v1.Dtos.ModeloLoginUsuario)">
+            <summary>
+            Método responsável por realizar Login de usuário
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="P:Sacolao.Api.v1.Dtos.FrutaDto.Id">
@@ -89,6 +101,16 @@
         <member name="P:Sacolao.Api.v1.Dtos.FrutaRegistroDto.Valor">
             <summary>
             Valor da Fruta {decimal}
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.ModeloLoginUsuario.Email">
+            <summary>
+            Email de usuário {string}
+            </summary>
+        </member>
+        <member name="P:Sacolao.Api.v1.Dtos.ModeloLoginUsuario.Senha">
+            <summary>
+            Senha de usuário {string}
             </summary>
         </member>
     </members>
