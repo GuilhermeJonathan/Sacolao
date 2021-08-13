@@ -1,0 +1,96 @@
+﻿@model Sacolao.Aplicacao.GestaoDeCarrinhos.Modelos.ModeloDeEdicaoDeCarrinho
+
+@{ViewData["Title"] = "Carrinho de Compras"; }
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home" )">Home</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Carrinho" )">Carrinhos</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <form role="form" action="@Url.Action("Finalizar", "Carrinho")" method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-table"></i> Carrinho de Compras </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @if (Model.Id == 0)
+                                {
+                                    <div class="col-lg-12">
+                                        <h2>Carrinho vazio</h2>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-lg-12">
+                                        <div class="cart-body">
+                                            <div class="cart-item">
+                                                @foreach (var item in Model.Frutas)
+                                                {
+                                                <div class="cart-row">
+                                                    <div class="cart-row-cell pic">
+                                                        <img src="@item.Fruta.Caminho" alt="@item.Fruta.Nome" class="img-circle img-size-64 mr-2">
+                                                    </div>
+                                                    <div class="cart-row-cell desc">
+                                                        <h5>@item.Fruta.Nome</h5>
+                                                        <p>#@item.Fruta.Id - @item.Fruta.Descricao</p>
+                                                    </div>
+                                                    <div class="cart-row-cell quant">
+                                                        <ul>
+                                                            <li>@item.Quantidade</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="cart-row-cell amount">
+                                                        <p>R$ @item.Fruta.Valor</p>
+                                                    </div>
+                                                    <div class="cart-row-cell amount">
+                                                        <p>R$ @item.Total</p>
+                                                    </div>
+                                                </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="description-block text-center border-right">
+                                        <h5 class="description-header">@Model.TotalProdutos</h5>
+                                        <span class="description-text">TOTAL PRODUTOS</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="description-block text-center">
+                                        <h5 class="description-header">R$ @Model.Valor</h5>
+                                        <span class="description-text">VALOR TOTAL</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary float-left">Adicionar mais Produtos</a>
+                            @if (Model.Id != 0)
+                            {<button type="submit" class="btn btn-info float-right">Finalizar Compra</button>}
+                            else
+                            { <a href="@Url.Action("Index", "Home")" class="btn btn-info float-right">Adicionar Produtos</a>}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

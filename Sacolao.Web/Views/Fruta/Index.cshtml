@@ -94,16 +94,5 @@
 @Html.Partial("_Confirmacao")
 
 @section scripts{
-<script>
-    $(function () {
-        $(".btnExcluirFruta").button().click(function () {
-            var idFruta = $(this).attr("data-id");
-            $(".Id").val(idFruta);
-
-            var form = $("#modalConfirmacao");
-            $(".btnConfirmacao").attr('href', '/Fruta/Excluir/' + idFruta);
-            form.modal('show');
-        });
-    })
-</script>
+    <script src="~/js/gestao-fruta.js"></script>
 }

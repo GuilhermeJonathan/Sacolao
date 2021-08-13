@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sacolao.Aplicacao\Sacolao.Aplicacao.csproj" />
     <ProjectReference Include="..\Sacolao.Infraestrutura\Sacolao.Infraestrutura.csproj" />
   </ItemGroup>

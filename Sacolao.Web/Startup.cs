@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sacolao.Aplicacao.ComunicacaoViaHttp;
+using Sacolao.Aplicacao.GestaoDeCarrinhos;
 using Sacolao.Aplicacao.GestaoDeFrutas;
 using Sacolao.Infraestrutura;
 using System;
@@ -30,8 +32,19 @@ namespace Sacolao.Web
             services.AddHttpClient<IServicoDeComunicacaoViaHttp, ServicoDeComunicacaoViaHttp>();
             
             services.Configure<MyConfiguration>(Configuration.GetSection("APIs:urlApi"));
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(100);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddSingleton<IServicoDeGestaoDeFrutas>(service => new ServicoDeGestaoDeFrutas(
+                Configuration.GetSection("APIs:urlApi").Value, new ServicoDeComunicacaoViaHttp()));
+            
+            services.AddSingleton<IServicoDeGestaoDeCarrinhos>(service => new ServicoDeGestaoDeCarrinhos(
                 Configuration.GetSection("APIs:urlApi").Value, new ServicoDeComunicacaoViaHttp()));
         }
 

@@ -1,4 +1,4 @@
-﻿@model Sacolao.Aplicacao.GestaoDeFrutas.Modelos.ModeloDeListaDeFrutas
+﻿@model Sacolao.Aplicacao.GestaoDeCarrinhos.Modelos.ModeloDeEdicaoDeCarrinho
 
 @{ViewData["Title"] = "Carrinho de Compras"; }
 
@@ -26,15 +26,39 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="Filtro.Nome">Nome</label>
-                                    @Html.TextBoxFor(a => a.Filtro.Nome, "Nome")
-                                </div>
+                                @if (Model.Id == 0)
+                                {
+                                    <div class="col-lg-12">
+                                        <h2>Carrinho vazio</h2>
+                                    </div>
+                                }
+                                else
+                                {
+                            <div class="col-lg-12">
+                                <table class="table table-striped text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th width="30px"></th>
+                                            <th>Código</th>
+                                            <th>Produtos</th>
+                                            <th>R$ Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> <a href="@Url.Action("Editar", "Carrinho", new { id = Model.Id } )" class="btn btn-info"> Visualizar Carrinho </a> </td>
+                                            <td>#@Model.Id</td>
+                                            <td>@Model.TotalProdutos</td>
+                                            <td>@Model.Valor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                }
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="@Url.Action("Index", "Home")" class="btn btn-default float-left">Voltar</a>
-                            <button type="submit" class="btn btn-primary float-right">Finalizar Compra</button>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary float-left">Adicionar Produtos</a>
                         </div>
                     </div>
                 </form>
@@ -42,9 +66,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(function () {
-
-    })
-</script>

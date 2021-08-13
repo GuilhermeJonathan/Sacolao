@@ -65,7 +65,6 @@ namespace Sacolao.Api.v1.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
         [HttpGet("BuscarPorId/{id}")]
         public IActionResult GetById(int id)
         {
@@ -95,6 +94,34 @@ namespace Sacolao.Api.v1.Controllers
                 return Created($"/api/fruta/{model.Id}", _mapper.Map<FrutaDto>(frutaNova));
 
             return BadRequest("Fruta não cadastrada.");
+        }
+
+        /// <summary>
+        /// Método responsável para dar baixa em estoque de Fruta
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("baixarEstoque")]
+        public IActionResult BaixarEstoque(FrutaEstoqueDto model)
+        {
+            var fruta = _repo.GetFrutaById(model.Id);
+
+            if (fruta == null)
+                return BadRequest("Não encontrou nenhuma fruta para ser excluída.");
+
+            if(fruta.QuantidadeEstoque < 0)
+                return BadRequest("Não há estoque disponível.");
+
+            if (model.QuantidadeVenda > fruta.QuantidadeEstoque)
+                return BadRequest("Quantidade maior que estoque.");
+
+            fruta.QuantidadeEstoque -= model.QuantidadeVenda;
+            _repo.Update(fruta);
+
+            if (_repo.SaveChanges())
+                return Ok(fruta);
+
+            return BadRequest("Fruta não excluída.");
         }
 
         /// <summary>

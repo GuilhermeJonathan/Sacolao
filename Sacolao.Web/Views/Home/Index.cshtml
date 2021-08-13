@@ -15,48 +15,52 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">          
+            <div class="col-lg-12">
                 <form role="form" action="@Url.Action("AdicionarNoCarrinho", "Carrinho")" method="get">
                     <div class="row">
-                    @if (Model.Lista != null)
-                    {
-                        @foreach (var item in Model.Lista)
+                        @if (Model.Lista != null)
                         {
-                            <div class="col-md-3">
-                                <div class="card card-primary card-outline">
-                                    <div class="card-body box-profile">
-                                        <div class="text-center">
-                                            <img class="profile-user-img img-fluid" src="@item.Caminho" alt="@item.Nome">
+                            @foreach (var item in Model.Lista)
+                            {
+                                <div class="col-md-3">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-body box-profile">
+                                            <div class="text-center">
+                                                <img class="profile-user-img img-fluid" src="@item.Caminho" alt="@item.Nome">
+                                            </div>
+                                            <h3 class="profile-username text-center">@item.Nome</h3>
+                                            <p class="text-muted text-center">@item.Descricao</p>
+                                            <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                    <b>R$ </b> <a class="float-right"> @item.Valor</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Estoque</b> <span class="float-right" id="Estoque_@item.Id">@item.Quantidade</span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Quantidade</b>
+                                                    <input type="number" value="" class="form-control" id="Qtd_@item.Id" name="Total">
+                                                </li>
+                                            </ul>
+                                            <a href="javascript:void(0);" data-id="@item.Id" class="btn btn-primary btn-block btnAdicionarNoCarrinho">Adicionar no Carrinho</a>
                                         </div>
-                                        <h3 class="profile-username text-center">@item.Nome</h3>
-                                        <p class="text-muted text-center">@item.Descricao</p>
-                                        <ul class="list-group list-group-unbordered mb-3">
-                                            <li class="list-group-item">
-                                                <b>R$ </b> <a class="float-right"> @item.Valor</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Estoque</b> <a class="float-right">@item.Quantidade</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Quantidade</b>
-                                                <input type="number" value="" class="form-control" id="Total" name="Total">
-                                            </li>
-                                        </ul>
-                                        <a href="@Url.Action("AdicionarNoCarrinho", "Carrinho", new { id = item.Id, total = item.Total})" class="btn btn-primary btn-block">Adicionar no Carrinho</a>
                                     </div>
                                 </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-lg-12">
+                                <h2 class="display-4">Nenhum produto cadastrado.</h2>
                             </div>
                         }
-                    }
-                    else
-                    {
-                        <div class="col-lg-12">
-                            <h2 class="display-4">Nenhum produto cadastrado.</h2>
-                        </div>
-                    }
-                </div>
-                </form>                   
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script src="~/js/gestao-carrinho.js"></script>
+}
